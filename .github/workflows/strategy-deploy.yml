@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install --no-frozen-lockfile
-          pnpm add turbo@latest --save-dev
+          pnpm add turbo@latest -w --save-dev
 
       - name: Debug workspace
         run: |
@@ -47,6 +47,8 @@ jobs:
           pnpm turbo --version
           echo "Workspace root:"
           pnpm turbo info | cat
+          echo "Package.json contents:"
+          cat package.json | cat
 
       - name: Determine affected apps
         id: set-affected
