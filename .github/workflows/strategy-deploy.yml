@@ -35,10 +35,18 @@ jobs:
           echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm add turbo@latest --save-dev
 
-      - name: Install Turbo
-        run: pnpm add turbo@latest -g
+      - name: Debug workspace
+        run: |
+          echo "Workspace packages:"
+          pnpm ls -r | cat
+          echo "Turbo version:"
+          pnpm turbo --version
+          echo "Workspace root:"
+          pnpm turbo info | cat
 
       - name: Determine affected apps
         id: set-affected
@@ -46,10 +54,6 @@ jobs:
           # Get the base commit
           BASE_SHA=$(git merge-base origin/main HEAD)
           echo "Base SHA: $BASE_SHA"
-
-          # Debug Turbo workspace
-          echo "Turbo workspace info:"
-          pnpm turbo info | cat
 
           # Get changed files
           CHANGED_FILES=$(git diff --name-only $BASE_SHA HEAD)
