@@ -27,7 +27,7 @@ jobs:
           echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Determine affected apps
         id: set-affected
@@ -53,7 +53,7 @@ jobs:
           echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
           echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: Deploy App 1
         run: |
           echo "Deploying App 1"
@@ -75,7 +75,7 @@ jobs:
           echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
           echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: Deploy App 2
         run: |
           echo "Deploying App 2"
@@ -97,7 +97,7 @@ jobs:
           echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
           echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: Deploy App 3
         run: |
           echo "Deploying App 3"
