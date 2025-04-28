@@ -19,10 +19,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: |
+          npm install -g pnpm
+          echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
+          echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: pnpm install
@@ -45,9 +47,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: |
+          npm install -g pnpm
+          echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
+          echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: pnpm install
       - name: Deploy App 1
@@ -65,9 +69,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: |
+          npm install -g pnpm
+          echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
+          echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: pnpm install
       - name: Deploy App 2
@@ -85,9 +91,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: |
+          npm install -g pnpm
+          echo "PNPM_HOME=$(npm config get prefix)/bin" >> $GITHUB_ENV
+          echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: pnpm install
       - name: Deploy App 3
