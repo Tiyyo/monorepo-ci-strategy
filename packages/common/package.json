@@ -1,0 +1,20 @@
+{
+  "name": "@tiyyo/common",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tiyyo/eslint-config": "workspace:*",
+    "@tiyyo/typescript-config": "workspace:*",
+    "@turbo/gen": "^2.5.0",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.25.0",
+    "typescript": "5.8.2"
+  }
+}
