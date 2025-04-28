@@ -1,3 +1,3 @@
 export const SomeComponent = () => {
-  return <div>SomeComponent</div>
+  return <div>new changes</div>
 }
