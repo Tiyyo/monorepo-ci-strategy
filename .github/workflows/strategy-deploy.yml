@@ -1,0 +1,96 @@
+name: Strategy Deploy
+
+on:
+  push:
+    branches:
+      - target
+
+jobs:
+  determine-affected:
+    runs-on: ubuntu-latest
+    outputs:
+      affected: ${{ steps.set-affected.outputs.affected }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Determine affected apps
+        id: set-affected
+        run: |
+          # Get affected apps list (comparison with target branch)
+          AFFECTED_APPS=$(pnpm turbo run build --filter="...[origin/${{ github.ref_name }}]" --dry-run=json | jq -r '.tasks[].package' | grep "^apps/" | sort | uniq | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "affected=$AFFECTED_APPS" >> $GITHUB_OUTPUT
+          echo "Affected apps: $AFFECTED_APPS"
+
+  deploy-app-1:
+    needs: determine-affected
+    if: contains(fromJson(needs.determine-affected.outputs.affected), 'apps/app-1')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Deploy App 1
+        run: |
+          echo "Deploying App 1"
+          # Add specific deployment commands here
+
+  deploy-app-2:
+    needs: determine-affected
+    if: contains(fromJson(needs.determine-affected.outputs.affected), 'apps/app-2')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Deploy App 2
+        run: |
+          echo "Deploying App 2"
+          # Add specific deployment commands here
+
+  deploy-app-3:
+    needs: determine-affected
+    if: contains(fromJson(needs.determine-affected.outputs.affected), 'apps/app-3')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Deploy App 3
+        run: |
+          echo "Deploying App 3"
+          # Add specific deployment commands here
